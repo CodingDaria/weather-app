@@ -3,15 +3,18 @@ import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
+import axios from 'axios'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import config from '../webpack.server.config.js'
 require('dotenv').config()
-// webpack-dev-server --mode development --config webpack.dev.config.js
-const PORT = process.env.PORT || 8080
-const server = express()
 
+const PORT = process.env.PORT || 8080
+
+const API_KEY = 'cbab7d8e553bc074667e0f950f71d954'
+
+const server = express()
 const compiler = webpack(config)
 
 const middleware = [
@@ -26,9 +29,15 @@ const middleware = [
 ]
 middleware.forEach((it) => server.use(it))
 
-server.get('/api/v1/test', (req, res) => {
-  console.log('success')
-  res.send('Hello World!')
+server.get('/api/v1/current/:city', async (req, res) => {
+  const { city } = req.params
+  const weather = await axios(
+    `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`
+  )
+    .then(({ data }) => data)
+    .catch(() => res.send('cannot get url'))
+  // console.log(`current weather for ${city}`)
+  res.json(weather)
 })
 
 server.use('/api/', (req, res) => {

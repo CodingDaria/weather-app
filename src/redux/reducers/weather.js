@@ -3,7 +3,7 @@ import axios from 'axios'
 const CURRENT_WEATHER = 'CURRENT_WEATHER'
 
 const initialState = {
-  weather: {}
+  currentWeather: {}
 }
 
 export default (state = initialState, action) => {
@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
     case CURRENT_WEATHER:
       return {
         ...state,
-        weather: action.weather
+        currentWeather: action.currentWeather
       }
     default:
       return state
@@ -21,13 +21,13 @@ export default (state = initialState, action) => {
 export function setWeather(city) {
   return (dispatch) => {
     axios(`/api/v1/current/${city}`)
-      .then(({ data: weather }) => {
-        dispatch({ type: CURRENT_WEATHER, weather })
+      .then(({ data: currentWeather }) => {
+        dispatch({ type: CURRENT_WEATHER, currentWeather })
       })
       .catch(() =>
         dispatch({
           type: CURRENT_WEATHER,
-          weather: { error: `cannot get info from server ${city}` }
+          currentWeather: { error: `cannot get info from server ${city}` }
         })
       )
   }

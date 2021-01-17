@@ -32,11 +32,10 @@ middleware.forEach((it) => server.use(it))
 server.get('/api/v1/current/:city', async (req, res) => {
   const { city } = req.params
   const weather = await axios(
-    `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`
+    `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
   )
     .then(({ data }) => data)
     .catch(() => res.send('cannot get url'))
-  // console.log(`current weather for ${city}`)
   res.json(weather)
 })
 

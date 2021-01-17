@@ -13,6 +13,11 @@ const CityInput = () => {
         placeholder="enter the city"
         value={city}
         onChange={(e) => setCity(e.target.value)}
+        onKeyPress={(e) => {
+          if (e.key === 'Enter') {
+            dispatch(setWeather(city))
+          }
+        }}
       />
       <button
         className="border border-blue-600 bg-blue-400 hover:bg-blue-600 p-2 m-2"

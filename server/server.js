@@ -39,6 +39,18 @@ server.get('/api/v1/current/:city', async (req, res) => {
   res.json(weather)
 })
 
+// api/v1/period/50.4333&30.5167
+
+server.get('/api/v1/period/:lat&:lon', async (req, res) => {
+  const { lat, lon } = req.params
+  const weather = await axios(
+    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${API_KEY}&units=metric`
+  )
+    .then(({ data }) => data)
+    .catch(() => res.send('cannot get url'))
+  res.json(weather)
+})
+
 server.use('/api/', (req, res) => {
   res.status(404)
   res.end()

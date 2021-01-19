@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setWeather } from '../redux/reducers/weather'
+import { getCurrentWeather } from '../redux/reducers/weather'
 
 const CityInput = () => {
   const [city, setCity] = useState('')
@@ -15,14 +15,15 @@ const CityInput = () => {
         onChange={(e) => setCity(e.target.value)}
         onKeyPress={(e) => {
           if (e.key === 'Enter') {
-            dispatch(setWeather(city))
+            dispatch(getCurrentWeather(city))
           }
         }}
       />
       <button
+        type="button"
         className="border border-blue-600 bg-blue-400 hover:bg-blue-600 p-2 m-2"
         onClick={() => {
-          dispatch(setWeather(city))
+          dispatch(getCurrentWeather(city))
         }}
       >
         Get

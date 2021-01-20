@@ -1,10 +1,8 @@
 import axios from 'axios'
 
-const CURRENT_WEATHER = 'CURRENT_WEATHER'
-const PERIODIC_WEATHER = 'PERIODIC_WEATHER'
+const GET_WEATHER = 'GET_WEATHER'
 
 const initialState = {
-  coord: {},
   currentWeather: {},
   hourlyWeather: {},
   dailyWeather: {}
@@ -12,47 +10,37 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case CURRENT_WEATHER:
+    case GET_WEATHER:
       return {
         ...state,
         currentWeather: action.currentWeather,
-        coord: action.currentWeather.coord
-      }
-    case PERIODIC_WEATHER:
-      return {
-        ...state
+        hourlyWeather: action.hourlyWeather,
+        dailyWeather: action.dailyWeather
       }
     default:
       return state
   }
 }
 
-export function getCurrentWeather(city) {
-  return (dispatch) => {
-    axios(`/api/v1/current/${city}`)
-      .then(({ data: currentWeather }) => {
-        dispatch({ type: CURRENT_WEATHER, currentWeather })
-      })
-      .catch(() =>
-        dispatch({
-          type: CURRENT_WEATHER,
-          currentWeather: { error: `cannot get info from server ${city}` }
-        })
-      )
-  }
-}
-
-export function getPeriodicWeather() {
-  return (dispatch, getState) => {
-    const { weather } = getState()
-    const { lat, lon } = weather
+export function getWeather(city) {
+  return async (dispatch) => {
+    const currentWeather = await axios(`/api/v1/current/${city}`)
+      .then(({ data }) => data)
+      .catch((err) => console.log(err))
+    const { lat, lon } = currentWeather.coord
     axios(`/api/v1/period/${lat}&${lon}`)
       .then(({ data }) => {
-        dispatch({ type: PERIODIC_WEATHER, hourlyWeather: data.hourly, dailyWeather: data.daily })
+        dispatch({
+          type: GET_WEATHER,
+          currentWeather,
+          hourlyWeather: data.hourly,
+          dailyWeather: data.daily
+        })
       })
       .catch(() =>
         dispatch({
-          type: PERIODIC_WEATHER,
+          type: GET_WEATHER,
+          currentWeather: { error: 'cannot get info from server' },
           hourlyWeather: { error: 'cannot get info from server' },
           dailyWeather: { error: 'cannot get info from server' }
         })

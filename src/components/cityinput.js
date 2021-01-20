@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { getCurrentWeather } from '../redux/reducers/weather'
+import { history } from '../redux'
+import { getWeather } from '../redux/reducers/weather'
 
 const CityInput = () => {
   const [city, setCity] = useState('')
   const dispatch = useDispatch()
+  const pathname = history.location.pathname
   return (
     <div className="flex flex-col items-center w-screen p-4">
       <input
@@ -15,7 +17,10 @@ const CityInput = () => {
         onChange={(e) => setCity(e.target.value)}
         onKeyPress={(e) => {
           if (e.key === 'Enter') {
-            dispatch(getCurrentWeather(city))
+            dispatch(getWeather(city))
+            if (pathname !== '/') {
+              history.push('/')
+            }
           }
         }}
       />
@@ -23,7 +28,10 @@ const CityInput = () => {
         type="button"
         className="border border-blue-600 bg-blue-400 hover:bg-blue-600 p-2 m-2"
         onClick={() => {
-          dispatch(getCurrentWeather(city))
+          dispatch(getWeather(city))
+          if (pathname !== '/') {
+            history.push('/')
+          }
         }}
       >
         Get

@@ -25,6 +25,4 @@ const Weather = () => {
   )
 }
 
-Weather.propTypes = {}
-
 export default Weather

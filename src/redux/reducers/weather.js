@@ -1,11 +1,13 @@
 import axios from 'axios'
 
 const GET_WEATHER = 'GET_WEATHER'
+const SET_PERIOD = 'SET_PERIOD'
 
 const initialState = {
   currentWeather: {},
   hourlyWeather: {},
-  dailyWeather: {}
+  dailyWeather: {},
+  selectedPeriod: ''
 }
 
 export default (state = initialState, action) => {
@@ -16,6 +18,11 @@ export default (state = initialState, action) => {
         currentWeather: action.currentWeather,
         hourlyWeather: action.hourlyWeather,
         dailyWeather: action.dailyWeather
+      }
+    case SET_PERIOD:
+      return {
+        ...state,
+        selectedPeriod: action.selectedPeriod
       }
     default:
       return state
@@ -46,4 +53,8 @@ export function getWeather(city) {
         })
       )
   }
+}
+
+export function setPeriod(period) {
+  return ({ type: SET_PERIOD, selectedPeriod: period })
 }

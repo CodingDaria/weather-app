@@ -28,7 +28,7 @@ const CityInput = () => {
       />
       <button
         type="button"
-        className="border-2 rounded border-blue-500 bg-blue-300 hover:bg-blue-500 p-2 m-2"
+        className="border-2 rounded border-blue-500 bg-blue-300 hover:bg-blue-500 py-2 px-4 m-2"
         onClick={searchFunc}
       >
         Get

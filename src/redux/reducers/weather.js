@@ -34,6 +34,7 @@ export function getWeather(city) {
     const currentWeather = await axios(`/api/v1/current/${city}`)
       .then(({ data }) => data)
       .catch((err) => console.log(err))
+    localStorage.setItem('city', currentWeather.name)
     const { lat, lon } = currentWeather.coord
     axios(`/api/v1/period/${lat}&${lon}`)
       .then(({ data }) => {

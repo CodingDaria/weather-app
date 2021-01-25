@@ -1,18 +1,25 @@
 import React, { useEffect } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import CityInput from './cityinput'
 import PeriodButton from './periodbutton'
 import Current from './current'
 import Hourly from './hourly'
 import Daily from './daily'
-import { getWeather } from '../redux/reducers/weather'
+import { getWeather, setPeriod } from '../redux/reducers/weather'
 
 const Weather = () => {
   const city = localStorage.getItem('city')
+  const { 0: period } = useParams()
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getWeather(city))
+    console.log('useEffect', period)
+    if (period) {
+      dispatch(setPeriod(period))
+    } else {
+      dispatch(setPeriod('Current'))
+    }
   })
   return (
     <div className="flex flex-col items-center w-screen p-4">

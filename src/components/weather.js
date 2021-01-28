@@ -14,7 +14,6 @@ const Weather = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getWeather(city))
-    console.log('useEffect', period)
     if (period) {
       dispatch(setPeriod(period))
     } else {

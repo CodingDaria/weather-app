@@ -24,7 +24,7 @@ const Weather = () => {
     <div className="flex flex-col items-center w-screen p-4">
       <h1 className="text-lg font-bold">Check the weather in your city!</h1>
       <CityInput />
-      <div className="w-2/3 flex justify-center">
+      <div className="w-2/3 flex justify-center m-2">
         {['Current', 'Hourly', 'Daily'].map((period) => {
           return <PeriodButton key={period} period={period} />
         })}

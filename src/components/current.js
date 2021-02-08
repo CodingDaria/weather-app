@@ -4,6 +4,10 @@ import { useSelector } from 'react-redux'
 const Current = () => {
   // http://openweathermap.org/img/wn/01d@2x.png
   const { currentWeather } = useSelector(({ weather }) => weather)
+  const timezone = currentWeather.timezone
+  const getTimezoneDate = (unixsec) => new Date((unixsec + timezone) * 1000)
+  const getSunDate = (unixsec) =>
+    `${getTimezoneDate(unixsec).getUTCHours()}:${getTimezoneDate(unixsec).getUTCMinutes()}`
   return (
     <div className="flex flex-col items-center w-1/2 p-4">
       {currentWeather.name && (
@@ -16,16 +20,12 @@ const Current = () => {
           <img src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`} />
           <div className="text-red-600 p-2 m-2">{currentWeather.main.pressure} hPa</div>
           <div className="text-red-600 p-2 m-2">{currentWeather.main.humidity} %</div>
-          <div className="text-red-600 p-2 m-2">
-            {new Date(currentWeather.sys.sunrise * 1000).toString()}
-          </div>
-          <div className="text-red-600 p-2 m-2">
-            {new Date(currentWeather.sys.sunset * 1000).toString()}
-          </div>
+          <div className="text-red-600 p-2 m-2">{getSunDate(currentWeather.sys.sunrise)}</div>
+          <div className="text-red-600 p-2 m-2">{getSunDate(currentWeather.sys.sunset)}</div>
           <div className="text-red-600 p-2 m-2">{currentWeather.wind.speed} m/s</div>
           <div className="text-red-600 p-2 m-2">{currentWeather.wind.deg} &deg;</div>
           <div className="text-red-600 p-2 m-2">
-            {new Date(currentWeather.dt * 1000).toString()}
+            Last update time: {getTimezoneDate(currentWeather.dt).toString().slice(0, 24)}
           </div>
         </>
       )}

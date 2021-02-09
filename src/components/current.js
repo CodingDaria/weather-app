@@ -18,21 +18,21 @@ const Current = () => {
         <>
           <div className="text-3xl font-bold">{currentWeather.name}</div>
           <div className="flex">
-            <div className="flex flex-col items-center m-3 mx-8">
-              <div className="text-2xl">{capitalize(currentWeather.weather[0].description)}</div>
+            <div className="flex flex-col items-center m-3 mr-8">
               <img
                 src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
               />
+              <div className="text-2xl">{capitalize(currentWeather.weather[0].description)}</div>
             </div>
             <div className="flex flex-col items-center m-3">
-              <div className="text-2xl">{Math.round(currentWeather.main.temp)} &#8451;</div>
+              <div className="text-5xl mt-5">{Math.round(currentWeather.main.temp)} &#8451;</div>
               <div className="mt-4 text-lg">
                 {Math.round(currentWeather.main.feels_like)} &#8451;
               </div>
               <div className="text-sm">Feels like</div>
             </div>
           </div>
-          <div className="flex">
+          <div className="flex mt-2">
             <div className="flex flex-col items-center mx-8">
               <div className="m-1 text-lg">
                 {Math.round(currentWeather.main.pressure * PRESSURE_RATIO)} mm Hg
@@ -57,7 +57,9 @@ const Current = () => {
             <div className="ml-5 text-sm">Sunset</div>
             <div className="mx-2 text-lg">{getSunDate(currentWeather.sys.sunset)}</div>
           </div>
-          <div className="m-2 text-sm">Last update: {new Date(currentWeather.dt * 1000).toString()}</div>
+          <div className="m-2 text-sm">
+            Last update: {new Date(currentWeather.dt * 1000).toString()}
+          </div>
         </>
       )}
     </div>

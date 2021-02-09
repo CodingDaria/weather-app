@@ -2,9 +2,15 @@ import React from 'react'
 
 const DailyComponent = ({ day }) => {
   const dayPeriods = ['morn', 'day', 'eve', 'night']
+  const getDate = (unixsec) => {
+    const date = new Date(unixsec * 1000)
+    const dayOfWeek = date.toString().slice(0, 3)
+    const dayOfMonth = date.getDate()
+    return `${dayOfWeek} ${dayOfMonth}`
+  }
   return (
     <div className="flex flex-col items-center p-3">
-      <div>{new Date(day.dt * 1000).toISOString()}</div>
+      <div>{getDate(day.dt)}</div>
       <div className="flex m-1">
         {dayPeriods.map((period) => {
           return <div className="text-red-600 text-lg p-2">{day.temp[period]} &#8451;</div>

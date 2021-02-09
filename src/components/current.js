@@ -12,8 +12,9 @@ const Current = () => {
     return `${hours}:${minutes}`
   }
   const capitalize = (str) => `${str.slice(0, 1).toUpperCase()}${str.slice(1)}`
+  // TODO: min-width
   return (
-    <div className="flex flex-col items-center w-2/3 p-4">
+    <div className="flex flex-col items-center p-4">
       {currentWeather.name && (
         <>
           <div className="text-3xl font-bold">{currentWeather.name}</div>

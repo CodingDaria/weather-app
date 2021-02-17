@@ -13,20 +13,31 @@ const DailyComponent = ({ day }) => {
       <div>{getDate(day.dt)}</div>
       <div className="flex m-1">
         {dayPeriods.map((period) => {
-          return <div className="text-red-600 text-lg p-2">{day.temp[period]} &#8451;</div>
+          return (
+            <div key={period} className="text-red-600 text-lg p-2">
+              {day.temp[period]} &#8451;
+            </div>
+          )
         })}
       </div>
       <div className="flex m-1">
         {dayPeriods.map((period) => {
-          return <div className="text-red-600 p-2">{day.feels_like[period]} &#8451;</div>
+          return (
+            <div key={period} className="text-red-600 p-2">
+              {day.feels_like[period]} &#8451;
+            </div>
+          )
         })}
       </div>
       <div>{day.weather[0].description}</div>
-      <img src={`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`} />
+      <img
+        className="bg-gray-400"
+        src={`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
+      />
       <div>{day.pressure} hPa</div>
       <div>{day.humidity} %</div>
       <div>{day.pop * 100} %</div>
-      <div className="p-2">{day.wind_speed} m/s</div>
+      <div className="p-2">{day.wind_speed.toFixed(1)} m/s</div>
       <div className="p-2">{day.wind_deg} &deg;</div>
     </div>
   )

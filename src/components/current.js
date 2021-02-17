@@ -21,6 +21,7 @@ const Current = () => {
           <div className="flex">
             <div className="flex flex-col items-center m-3 mr-8">
               <img
+                className="bg-gray-400"
                 src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
               />
               <div className="text-2xl">{capitalize(currentWeather.weather[0].description)}</div>
@@ -36,9 +37,9 @@ const Current = () => {
           <div className="flex mt-2">
             <div className="flex flex-col items-center mx-8">
               <div className="m-1 text-lg">
-                {Math.round(currentWeather.main.pressure * PRESSURE_RATIO)} mm Hg
+                {Math.round(currentWeather.main.pressure * PRESSURE_RATIO)}
               </div>
-              <div className="text-sm">Pressure</div>
+              <div className="text-sm">Pressure (mm Hg)</div>
             </div>
             <div className="flex flex-col items-center mx-8">
               <div className="m-1 text-lg">{currentWeather.main.humidity} %</div>
@@ -46,7 +47,7 @@ const Current = () => {
             </div>
             <div className="flex flex-col items-center mx-8">
               <div className="m-1 text-lg">
-                {currentWeather.wind.speed} m/s; {currentWeather.wind.deg} &deg;
+                {currentWeather.wind.speed.toFixed(1)} m/s; {currentWeather.wind.deg} &deg;
               </div>
               <div className="text-sm">Wind</div>
             </div>

@@ -11,6 +11,9 @@ const Hourly = () => {
         hourlyWeather.slice(0, 12).map((hour, index) => {
           return <HourlyComponent key={hour.dt} hour={hour} isOdd={index % 2} />
         })}
+      <div className="m-2 text-sm">
+        Last update: {new Date(currentWeather.dt * 1000).toLocaleString()}
+      </div>
     </div>
   )
 }

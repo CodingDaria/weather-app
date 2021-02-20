@@ -60,7 +60,7 @@ const Current = () => {
             <div className="mx-2 text-lg">{getSunDate(currentWeather.sys.sunset)}</div>
           </div>
           <div className="m-2 text-sm">
-            Last update: {new Date(currentWeather.dt * 1000).toString()}
+            Last update: {new Date(currentWeather.dt * 1000).toLocaleString()}
           </div>
         </>
       )}
